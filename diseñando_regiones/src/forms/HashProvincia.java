@@ -7,6 +7,7 @@ public class HashProvincia {
 	public HashProvincia() {
 		provincias = new HashMap<Integer, String>();
         
+		provincias.put(0, "Ciudad de Buenos Aires");
         provincias.put(1, "Buenos Aires");
         provincias.put(2, "Cordoba");
         provincias.put(3, "Santa Fe");
@@ -29,6 +30,10 @@ public class HashProvincia {
         provincias.put(20, "Jujuy");
         provincias.put(21, "Tierra del Fuego");
         provincias.put(22, "Santa Cruz");
+	}
+	
+	public String getProvincia(int i) {
+		return provincias.get(i);
 	}
 
 }
