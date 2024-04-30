@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module diseñando_regiones {
-}
