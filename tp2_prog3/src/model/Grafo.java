@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import exceptions.AristaInexistenteException;
 import exceptions.VerticeInexistenteException;
@@ -15,65 +16,57 @@ public class Grafo {
 		listaAdyacencias = new HashMap<>();
 	}
 
-	/**
-	 * Metodo para agregar un vertice Cotrola que el vertice no exista en el HashMap
-	 * primero
-	 * 
-	 * @param vertice
-	 */
 	public void agregarVertice(String vertice) {
 		if (!listaAdyacencias.containsKey(vertice)) {
 			listaAdyacencias.put(vertice, new ArrayList<>());
 		}
 	}
 
-	/**
-	 * Metodo para agregar una arista
-	 * 
-	 * @param origen
-	 * @param destino
-	 * @param peso
-	 */
+	public List<Arista> getAristas(String vertice) {
+		return listaAdyacencias.get(vertice);
+	}
+	
+	public Set<String> getVertices() {
+		return listaAdyacencias.keySet();
+	}
+	
 	public void agregarArista(String origen, String destino, int peso) {
-
 		validarVertice(origen);
 		validarVertice(destino);
 		validarVerticesDistintos(origen, destino);
 		validarPesoPositivo(peso);
-
 		agregarVertice(origen);
 		agregarVertice(destino);
-
 		listaAdyacencias.get(origen).add(new Arista(origen, destino, peso));
 		listaAdyacencias.get(destino).add(new Arista(destino, origen, peso));
 
 	}
 
+	public void elinarArista(Arista arista) {
+		listaAdyacencias.get(arista.getOrigen()).remove(arista);
+		listaAdyacencias.get(arista.getDestino()).remove(arista);
+	}
+	
 	/**
 	 * Metodo para imprimir el grafo como lista de adyacencia PRUEBAS DE CONSOLA
 	 */
 	public void imprimirGrafo() {
 		for (Map.Entry<String, List<Arista>> entry : listaAdyacencias.entrySet()) {
 			String vertice = entry.getKey();
-			System.out.print("Vértice " + vertice + " -> ");
+			System.out.print("Vértice : " + vertice + " -> ");
 			for (Arista arista : entry.getValue()) {
 				System.out.print(arista.getDestino() + ":" + arista.getPeso() + ", ");
 			}
 			System.out.println();
 		}
-
 	}
 
-	/**
-	 * Metodo para obtener el peso entre dos vertices
-	 * 
-	 * @param origen
-	 * @param destino
-	 * @return peso entre dos vertices
-	 * @return -1 si no existe conexion entre los dos vertices
-	 * @throws AristaInexistenteException
-	 * @throws VerticeInexistenteException
-	 */
+	public void cleanGrafo() {
+		for (Map.Entry<String, List<Arista>> entry : listaAdyacencias.entrySet()) {
+			entry.getValue().clear();
+		}
+	}
+	
 	public int getPesoArista(String origen, String destino)
 			throws AristaInexistenteException, VerticeInexistenteException {
 		validarVerticeExistente(origen);
@@ -90,17 +83,7 @@ public class Grafo {
 	public Map<String, List<Arista>> getListaAdyacencias() {
 		return listaAdyacencias;
 	}
-
-	/*******************************************************************
-	 * Validaciones
-	 * *****************************************************************
-	 */
-
-	/**
-	 * Verificar valores validos para el vertice
-	 * 
-	 * @param vertice
-	 */
+	
 	private void validarVertice(String vertice) {
 		if (vertice == null)
 			throw new IllegalArgumentException("El Vertice no puede se NULL");
