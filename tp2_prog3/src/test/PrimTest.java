@@ -38,7 +38,8 @@ public class PrimTest {
 		g.agregarArista("C", "D", 20);
 		g.agregarArista("D", "E", 25);
 		AgmPrim ap = new AgmPrim(g);
-		List<Arista> agm = ap.generarAgmPrim();
+		ap.generarAgmPrim();
+		List<Arista> agm = ap.getListaAgm();
 		agm.sort(null);
 		assertTrue(agm.get(0).equals(new Arista("A", "E", 1)));
 		assertTrue(agm.get(1).equals(new Arista("B", "C", 5)));

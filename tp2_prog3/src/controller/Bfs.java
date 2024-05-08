@@ -27,11 +27,9 @@ public class Bfs {
         if (listaAdyacencias.isEmpty()) {
             return true; // Un grafo vacío se considera conexo
         }
-
         Set<String> visitados = new HashSet<>();
         String verticeInicial = listaAdyacencias.keySet().iterator().next();
         bfs(verticeInicial, visitados);
-
         return visitados.size() == listaAdyacencias.size();
     }
 
@@ -44,10 +42,8 @@ public class Bfs {
         Queue<String> cola = new LinkedList<>();
         cola.offer(vertice);
         visitados.add(vertice);
-
         while (!cola.isEmpty()) {
             String actual = cola.poll();
-
             for (Arista arista : listaAdyacencias.get(actual)) {
                 if (!visitados.contains(arista.getDestino())) {
                     visitados.add(arista.getDestino());
