@@ -113,6 +113,8 @@ public class Board {
 		Comenzar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				grafo.imprimirGrafo();
+				Tabla tabla = new Tabla(grafo);
+				tabla.setVisible(true);
 			}
 		});
 
