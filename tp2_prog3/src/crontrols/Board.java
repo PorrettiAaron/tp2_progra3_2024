@@ -6,16 +6,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Label;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
 
+import model.*;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 public class Board {
 
 	private JFrame frame;
 	private JTextField peso;
+	private Grafo grafo;
+	private Arista arista;
+
 
 	/**
 	 * Launch the application.
@@ -38,6 +47,7 @@ public class Board {
 	 */
 	public Board() {
 		initialize();
+		this.grafo = new Grafo();
 	}
 
 	/**
@@ -76,12 +86,35 @@ public class Board {
 		frame.getContentPane().add(peso);
 		peso.setColumns(10);
 		
+		JLabel log = new JLabel("");
+		log.setHorizontalAlignment(SwingConstants.CENTER);
+		log.setBounds(20, 188, 387, 14);
+		frame.getContentPane().add(log);
+		
 		JButton nuevaArista = new JButton("Agregar Nueva Arista");
 		nuevaArista.setBounds(45, 227, 176, 23);
 		frame.getContentPane().add(nuevaArista);
+		nuevaArista.addActionListener((ActionListener) new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					log.setText("");
+					grafo.agregarArista(provincia1.getSelectedItem().toString(), provincia2.getSelectedItem().toString(), Integer.parseInt(peso.getText()));
+					log.setText("arista agregada correctamente");
+				}
+				catch(Exception e){
+					log.setText("por favor ingrese los datos correctamente");
+				}
+			}
+		});
 		
 		JButton Comenzar = new JButton("Comenzar");
 		Comenzar.setBounds(231, 227, 176, 23);
 		frame.getContentPane().add(Comenzar);
+		Comenzar.addActionListener((ActionListener) new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				grafo.imprimirGrafo();
+			}
+		});
+
 	}
 }
