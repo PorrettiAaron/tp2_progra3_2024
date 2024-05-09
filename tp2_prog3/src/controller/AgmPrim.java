@@ -19,37 +19,26 @@ public class AgmPrim {
 		verificarGrafo(grafo);
 		this.listaAdyacencias = grafo.getListaAdyacencias();
 	}
+	
+	public List<Arista> getListaAgm() {
+		return this.agm;
+	}
 
-	// Método para encontrar el AGM utilizando el algoritmo de Prim
-	public List<Arista> generarAgmPrim() {
-		// Inicializar las estructuras de datos
+	public void generarAgmPrim() {
 		Set<String> visitados = new HashSet<>();
 		PriorityQueue<Arista> pq = new PriorityQueue<>();
 		agm = new ArrayList<>();
-
-		// Seleccionar un vértice inicial (cualquier vértice)
 		String verticeInicial = listaAdyacencias.keySet().iterator().next();
 		visitados.add(verticeInicial);
-
-		// Agregar las aristas adyacentes al vértice inicial a la cola de prioridad
 		for (Arista arista : listaAdyacencias.get(verticeInicial)) {
 			pq.offer(arista);
 		}
-
-		// Mientras la cola de prioridad no esté vacía y no se hayan visitado todos los
-		// vértices
 		while (!pq.isEmpty() && visitados.size() < listaAdyacencias.size()) {
-			// Obtener la arista con el peso más bajo de la cola de prioridad
 			Arista arista = pq.poll();
 			String destino = arista.getDestino();
-
-			// Si el destino no ha sido visitado, agregar la arista al AGM
 			if (!visitados.contains(destino)) {
 				visitados.add(destino);
 				agm.add(arista);
-
-				// Agregar las aristas adyacentes al vértice recién visitado a la cola de
-				// prioridad
 				for (Arista aristaAdyacente : listaAdyacencias.get(destino)) {
 					if (!visitados.contains(aristaAdyacente.getDestino())) {
 						pq.offer(aristaAdyacente);
@@ -57,7 +46,6 @@ public class AgmPrim {
 				}
 			}
 		}
-		return agm;
 	}
 
 	/** 
@@ -68,16 +56,16 @@ public class AgmPrim {
 	 * @return una lista de las aristas resultantes
 	 */
 	public List<Arista> dividirRegiones(int regiones) {
-		// Identificar la arista con el mayor peso en el AGM
+		if (regiones > listaAdyacencias.size()) {
+			throw new IllegalArgumentException("Exede la cantidad maxima de regiones que es posible crear");
+		}
 		if (regiones > 1) {
 			Arista aristaMasPesada = null;
-			for (Arista arista : agm) {
+			for (Arista arista : this.agm) {
 				if (aristaMasPesada == null || arista.getPeso() > aristaMasPesada.getPeso()) {
 					aristaMasPesada = arista;
 				}
 			}
-
-			// Eliminar la arista con el mayor peso del AGM
 			if (aristaMasPesada != null) {
 				agm.remove(aristaMasPesada);
 			}
@@ -87,20 +75,19 @@ public class AgmPrim {
 		return agm;
 	}
 
+	/**
+	 * SOLO PARA PRUEBAS DE CONSOLA
+	 */
 	public void printAgmPrim() {
-        for (Arista a : agm) {
+        for (Arista a : this.agm) {
         	System.out.println(a.toString());
         }
 	}
 	
-	/** Validar si el grafo es conexo
-	 * 
-	 * @param grafo
-	 */
 	private void verificarGrafo(Grafo grafo) {
 		Bfs bf = new Bfs(grafo);
 		if (!bf.esConexo()) 
 			throw new IllegalArgumentException("No se puede realizar AGM de un grafo no conexo");
 	}
-
+	
 }
