@@ -1,7 +1,6 @@
 package crontrols;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
@@ -13,18 +12,21 @@ public class Map {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Map window = new Map();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	/*
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Map window = new Map();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	*/
+	
 public static void main (String[] args) {	
 	JFrame frame = new JFrame("Mapa");
     frame.setSize(800, 600);
