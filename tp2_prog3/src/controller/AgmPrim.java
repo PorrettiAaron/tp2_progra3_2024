@@ -59,6 +59,8 @@ public class AgmPrim {
 		if (regiones > listaAdyacencias.size()) {
 			throw new IllegalArgumentException("Exede la cantidad maxima de regiones que es posible crear");
 		}
+		
+		
 		if (regiones > 1) {
 			Arista aristaMasPesada = null;
 			for (Arista arista : this.agm) {
@@ -88,6 +90,13 @@ public class AgmPrim {
 		Bfs bf = new Bfs(grafo);
 		if (!bf.esConexo()) 
 			throw new IllegalArgumentException("No se puede realizar AGM de un grafo no conexo");
+	}
+	
+	public List<Arista> procesoAgm(int regiones){
+		generarAgmPrim();
+		dividirRegiones(regiones);
+		return getListaAgm();
+		
 	}
 	
 }
