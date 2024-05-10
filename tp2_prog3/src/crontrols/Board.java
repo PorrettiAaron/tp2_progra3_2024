@@ -2,7 +2,6 @@ package crontrols;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.List;
@@ -17,7 +16,7 @@ import controller.AgmPrim;
 public class Board extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	JFrame frame;
 	private JTextField peso;
 	private Grafo grafo;
 	private Arista arista;
@@ -50,7 +49,7 @@ public class Board extends JFrame{
 		initialize();
 		this.grafo = new Grafo();
 
-
+		
 
 	}
 	
