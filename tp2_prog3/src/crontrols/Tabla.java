@@ -1,13 +1,23 @@
 package crontrols;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.table.*;
 
+import model.Arista;
 import model.Grafo;
+import controller.*;
+
 
 public class Tabla extends JFrame {
 
@@ -16,43 +26,38 @@ public class Tabla extends JFrame {
 	private JTextField textField;
 
 
-	public Tabla(Grafo grafo) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 819, 544);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	public Tabla(Grafo grafo, List<Arista> agm ) {
+		SwingUtilities.invokeLater(() -> {		
+			JFrame frame = new JFrame("Tabla de Regiones del AGM");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setSize(400, 300);
+			
+			Region reg = new Region(grafo, agm);
+			List<Set<String>> regiones = reg.generarRegiones();
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+			//genero el modelo de la tabla
+			String[] columnas = {"Región", "Vértices"};
+			DefaultTableModel tableModel = new DefaultTableModel(columnas, 0);
+			//lleno el modelo
+			for (int i = 0; i < regiones.size(); i++) {
+				Set<String> region = regiones.get(i);
+				String verticesTexto = String.join(", ", region);
+				tableModel.addRow(new Object[]{i + 1, verticesTexto});
+			}
+			// Crear la tabla y asignarle el modelo
+			JTable table = new JTable(tableModel);
 
-		textField = new JTextField();
-		textField.setBounds(339, 11, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+			// Crear un JScrollPane y agregar la tabla a él
+			JScrollPane scrollPane = new JScrollPane(table);
 
-		setTitle("Tabla de AGM y Regiones");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			// Agregar el JScrollPane al JFrame
+			frame.add(scrollPane);
 
+			frame.setVisible(true);
 
-		// Crear una tabla con las columnas necesarias (por ejemplo, "Nodo", "Región", etc.)
-		String[] columnNames = {"Nodo", "Región"};
-		Object[][] data = {
-				{"A", "Región 1"},
-				{"B", "Región 2"},
-				// Agrega más filas de datos aquí...
-		};
-
-		//JTable table = new JTable(data, columnNames);
-		//table.setFillsViewportHeight(true);
-
-		//JScrollPane scrollPane = new JScrollPane(table);
-		//add(scrollPane);
-
-		pack();
-
-
-
+		});
 	}
+
 
 }
 

@@ -89,12 +89,18 @@ public class Mapa {
         similarityButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ArrayList <String> pointNames = new ArrayList<>(points.keySet());
+            	Board board = new Board(pointNames);
+            	
+            	board.setVisible(true);            	
+            }
+            	/*
                 // Crear y configurar el diálogo
                 JDialog dialog = new JDialog(frame, "Seleccionar puntos", true);
                 dialog.setLayout(new GridLayout(4, 2));
 
                 // Obtener nombres de puntos disponibles
-                List<String> pointNames = new ArrayList<>(points.keySet());
+
 
                 // ComboBox para el primer punto
                 JComboBox<String> pointComboBox1 = new JComboBox<>(pointNames.toArray(new String[0]));
@@ -135,6 +141,7 @@ public class Mapa {
                 dialog.setLocationRelativeTo(frame);
                 dialog.setVisible(true);
             }
+            */
         });
 
         // Agregar los paneles al JFrame
