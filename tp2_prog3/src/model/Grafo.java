@@ -41,10 +41,30 @@ public class Grafo {
 		listaAdyacencias.get(destino).add(new Arista(destino, origen, peso));
 
 	}
+	
+	public List<Arista> obtenerTodasAristas() {
+	    List<Arista> todasAristas = new ArrayList<>();
+	    for (List<Arista> aristas : listaAdyacencias.values()) {
+	    	
+	        todasAristas.addAll(aristas);
+	    }
+	    return todasAristas;
+	}
 
-	public void elinarArista(Arista arista) {
+	public void eliminarArista(Arista arista) {
 		listaAdyacencias.get(arista.getOrigen()).remove(arista);
 		listaAdyacencias.get(arista.getDestino()).remove(arista);
+	}
+	
+	public void eliminarAristaEntreVertices(String origen, String destino){
+		List<Arista> aristasOrigen = listaAdyacencias.get(origen);
+
+	    for (Arista arista : aristasOrigen) {
+	        if (arista.getDestino().equals(destino)) {
+	        	eliminarArista(arista);
+	            break;
+	        }
+	    }
 	}
 	
 	/**
