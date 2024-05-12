@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.Set;
 import exceptions.AristaInexistenteException;
 import exceptions.VerticeInexistenteException;
 
-public class Grafo {
+public class Grafo implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Map<String, List<Arista>> listaAdyacencias;
 
 	public Grafo() {
