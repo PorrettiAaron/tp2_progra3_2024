@@ -5,6 +5,10 @@ import controller.Dfs;
 import controller.Region;
 import controller.AgmPrim;
 
+
+/**
+ * CLASE SOLO PARA PUEBAS DE CONSOLA
+ */
 public class Main {
 
 	public static void main(String args[]) {
@@ -32,10 +36,12 @@ public class Main {
 		System.out.println("Arbol generador minimo");
 		prim.printAgmPrim();
 		System.out.println("Division de regiones por medio de eliminar aristas");
-		prim.dividirRegiones(2);
+		prim.dividirRegiones(7);
 		prim.printAgmPrim();
 		
 		Region r = new Region(g, prim.getListaAgm());
 		r.imprimirRegiones(r.generarRegiones());
+		
+		g.imprimirGrafo();
 	}
 }

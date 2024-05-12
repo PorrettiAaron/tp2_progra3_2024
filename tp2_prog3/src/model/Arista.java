@@ -20,7 +20,11 @@ public class Arista implements Comparable<Arista> {
 		return peso;
 	}
 	
-	public Arista gerArista(String destino) {
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
+
+	public Arista getArista(String destino) {
 		return this;
 	}
 

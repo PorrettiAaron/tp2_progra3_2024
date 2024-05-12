@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -16,8 +17,10 @@ public class Region {
 	List<Set<String>> regiones;
 	
 	public Region(Grafo grafo, List<Arista> listaAristas) {
-		this.grafoRegiones = grafo;
-		grafoRegiones.cleanGrafo();
+		grafoRegiones = new Grafo();
+		for (Map.Entry<String, List<Arista>> entry : grafo.getListaAdyacencias().entrySet()) {
+			grafoRegiones.agregarVertice(entry.getKey());
+		}
 		for (Arista arista : listaAristas) {
 			this.grafoRegiones.agregarArista(arista.getOrigen(), arista.getDestino(), arista.getPeso());
 		}
@@ -57,7 +60,6 @@ public class Region {
     
     /**
      * SOLO PARA PRUEBAS DE CONSOLA
-     * @param reg
      */
     public void imprimirRegiones(List<Set<String>> reg) {
         System.out.println("Listado de Regiones Generadas");
