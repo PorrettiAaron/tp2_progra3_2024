@@ -23,7 +23,7 @@ public class Dfs {
     public boolean esConexo() {
         // Verificar si el grafo está vacío
         if (listaAdyacencias.isEmpty()) {
-            return true; // Un grafo vacío se considera conexo
+            return false;
         }
 
         Set<String> visitados = new HashSet<>();

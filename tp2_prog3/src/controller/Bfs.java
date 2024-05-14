@@ -25,7 +25,7 @@ public class Bfs {
 	 */
     public boolean esConexo() {
         if (listaAdyacencias.isEmpty()) {
-            return true; // Un grafo vacío se considera conexo
+            return false; 
         }
         Set<String> visitados = new HashSet<>();
         String verticeInicial = listaAdyacencias.keySet().iterator().next();
