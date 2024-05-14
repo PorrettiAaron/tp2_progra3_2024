@@ -1,6 +1,9 @@
 package model;
 
-public class Arista implements Comparable<Arista> {
+import java.io.Serializable;
+
+public class Arista implements Comparable<Arista>, Serializable {
+	private static final long serialVersionUID = 1L;
 	private String origen;
     private String destino;
     private int peso;
@@ -20,7 +23,11 @@ public class Arista implements Comparable<Arista> {
 		return peso;
 	}
 	
-	public Arista gerArista(String destino) {
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
+
+	public Arista getArista(String destino) {
 		return this;
 	}
 
