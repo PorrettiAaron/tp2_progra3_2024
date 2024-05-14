@@ -81,15 +81,16 @@ public class Mapa implements Serializable {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String name = JOptionPane.showInputDialog(frame, "Ingrese el nombre del punto:");
-				validarPunto(name);
+				if(validarPunto(name)) {
 
-				try {
-					g.agregarVertice(name);
-					agregarPuntoAlMapa(e, name);
-				}
+					try {
+						g.agregarVertice(name);
+						agregarPuntoAlMapa(e, name);
+					}
 				
-				catch (Exception ex) {
-					JOptionPane.showMessageDialog(frame, ex.getMessage());
+					catch (Exception ex) {
+						JOptionPane.showMessageDialog(frame, ex.getMessage());
+					}
 				}
 			}
 
@@ -307,11 +308,12 @@ public class Mapa implements Serializable {
 	}
 	
 	
-	private void validarPunto(String name) {
+	private boolean validarPunto(String name) {
 		if (points.containsKey(name)) {
 			JOptionPane.showMessageDialog(frame, "Ya existe un punto con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
-			return;
+			return false;
 		}
+		return true;
 	}
 	
 	
