@@ -88,4 +88,11 @@ public class AgmPrim {
 
 
 	
+	public List<Arista> procesoAgm(int regiones){
+		generarAgmPrim();
+		dividirRegiones(regiones);
+		return getListaAgm();
+		
+	}
+	
 }
