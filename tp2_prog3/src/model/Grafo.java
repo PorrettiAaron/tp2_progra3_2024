@@ -76,6 +76,7 @@ public class Grafo implements Serializable {
 		if (getAristaExistente(origen, destino) == null)
 			throw new AristaInexistenteException("No existe arista entre " + origen + " y " + destino);
 		eliminarArista(getAristaExistente(origen, destino));
+		eliminarArista(getAristaExistente(destino, origen));
 	}
 
 	public Map<String, String> imprimirGrafo() {

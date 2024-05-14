@@ -85,14 +85,7 @@ public class AgmPrim {
 		return getListaAgm();
 	}
 
-	/**
-	 * SOLO PARA PRUEBAS DE CONSOLA
-	 */
-	public void printAgmPrim() {
-		for (Arista a : this.agm) {
-			System.out.println(a.toString());
-		}
-	}
-	
+
+
 	
 }

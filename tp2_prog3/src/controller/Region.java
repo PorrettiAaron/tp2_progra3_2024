@@ -58,13 +58,5 @@ public class Region {
         return regiones;
     }
     
-    /**
-     * SOLO PARA PRUEBAS DE CONSOLA
-     */
-    public void imprimirRegiones(List<Set<String>> reg) {
-        System.out.println("Listado de Regiones Generadas");
-        for (int i = 0; i < reg.size(); i++) {
-            System.out.println("Region " + (i + 1) + ": -> Provincias: " + reg.get(i));
-        }
-    }
+
 }

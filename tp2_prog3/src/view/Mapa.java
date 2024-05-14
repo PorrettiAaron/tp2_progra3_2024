@@ -267,7 +267,7 @@ public class Mapa implements Serializable {
 
 	
 	private void mostrarMensajeDeBienvenida() {
-		String mensajeBienvenida = "Bienvenido al programa Disenando regiones.\n\n" +
+		String mensajeBienvenida = "Bienvenido al programa Diseñando regiones.\n\n" +
                 "Para marcar un punto en el mapa, simplemente haz clic en la ubicación deseada.\n" +
                 "Luego, se te pedirá que ingreses un nombre para el punto.\n" +
                 "Puedes marcar varios puntos de esta manera.\n\n" +
@@ -294,7 +294,16 @@ public class Mapa implements Serializable {
         });
         panel.add(valoresPorDefectoButton, BorderLayout.SOUTH);
 
-        JOptionPane.showMessageDialog(null, panel, "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
+        JButton aceptarButton = new JButton("Aceptar");
+        aceptarButton.addActionListener(e -> {
+            initialize();
+            Window window = SwingUtilities.getWindowAncestor(panel);
+            window.dispose();
+        });
+
+        JOptionPane optionPane = new JOptionPane(panel, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{aceptarButton}, aceptarButton);
+        JDialog dialog = optionPane.createDialog("Instrucciones");
+        dialog.setVisible(true);
 	}
 	
 	
@@ -339,7 +348,6 @@ public class Mapa implements Serializable {
 		String punto1 = (String) pointComboBox1.getSelectedItem();
 		String punto2 = (String) pointComboBox2.getSelectedItem();
 		g.eliminarAristaEntreVertices(punto1, punto2);
-		g.eliminarAristaEntreVertices(punto2, punto1);
 		JOptionPane.showMessageDialog(frame, "Se eliminó la arista entre punto 1: " + punto1 + "\n" + " y punto 2: " + punto2);
 		dibujarAristas();
 	}
@@ -399,9 +407,8 @@ public class Mapa implements Serializable {
         	this.points = ms.points;
         	this.dibujarPuntos();
         	in.close();
-            System.out.println("Mapa serializado correctamente en mapa.txt");
         } catch (Exception ex) {
-            System.err.println("Error al serializar el mapa: " + ex.getMessage());
+            ex.getMessage();
         }
         
     }
@@ -413,9 +420,8 @@ public class Mapa implements Serializable {
         	ObjectOutputStream out = new ObjectOutputStream(fos);
         	out.writeObject(this);
         	out.close();
-            System.out.println("Mapa serializado correctamente en mapa.txt");
         } catch (Exception ex) {
-            System.err.println("Error al serializar el mapa: " + ex.getMessage());
+            ex.getMessage();
         }
     } 
 
