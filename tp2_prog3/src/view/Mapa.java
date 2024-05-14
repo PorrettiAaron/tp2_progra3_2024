@@ -46,15 +46,11 @@ public class Mapa implements Serializable {
         points = new HashMap<>();
         frame = new JFrame("Creando Regiones");
         mapViewer = new JMapViewer();
-        
-        this.leerSerializacion();
-        
-        initialize();
+		mostrarMensajeDeBienvenida();
     }
 
 	private void initialize() {
 		
-		mostrarMensajeDeBienvenida();
 		inicializarFrame();
 		dibujarAristas();
 		
@@ -271,16 +267,34 @@ public class Mapa implements Serializable {
 
 	
 	private void mostrarMensajeDeBienvenida() {
-        String mensajeBienvenida = "Bienvenido al programa Disenando regiones.\n\n" +
+		String mensajeBienvenida = "Bienvenido al programa Disenando regiones.\n\n" +
                 "Para marcar un punto en el mapa, simplemente haz clic en la ubicación deseada.\n" +
                 "Luego, se te pedirá que ingreses un nombre para el punto.\n" +
                 "Puedes marcar varios puntos de esta manera.\n\n" +
                 "Para generar regiones, todos los puntos deben estar conectados \npor al menos un índice de similitud.\n" +
                 "Asegúrate de haber marcado todos los puntos que deseas incluir en las regiones.\n\n" +
-                "Haz clic en \"Comenzar\" para empezar.";
+                "Haz clic en \"Ok\" para empezar.";
 
-        JOptionPane.showMessageDialog(null, mensajeBienvenida, "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
-		
+        JTextArea textArea = new JTextArea(mensajeBienvenida);
+        textArea.setEditable(false);
+        textArea.setLineWrap(false);
+        textArea.setWrapStyleWord(true);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        JButton valoresPorDefectoButton = new JButton("Usar valores por defecto");
+        valoresPorDefectoButton.addActionListener(e -> {
+            leerSerializacion();
+            dibujarAristas();
+            initialize();
+            
+            Window window = SwingUtilities.getWindowAncestor(panel);
+            window.dispose();
+        });
+        panel.add(valoresPorDefectoButton, BorderLayout.SOUTH);
+
+        JOptionPane.showMessageDialog(null, panel, "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	
